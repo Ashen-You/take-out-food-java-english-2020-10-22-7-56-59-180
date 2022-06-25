@@ -24,7 +24,7 @@ public class AppTest {
                 "Promotion used:\n" +
                 "Half price for certain dishes (Braised chicken and Cold noodles), saving 13 yuan\n" +
                 "-----------------------------------\n" +
-                "Total:25 yuan\n" +
+                "Total: 25 yuan\n" +
                 "==================================="));
 
     }
@@ -43,7 +43,7 @@ public class AppTest {
                 "Promotion used:\n" +
                 "Deduct 6 yuan when the order reaches 30 yuan\n" +
                 "-----------------------------------\n" +
-                "Total:26 yuan\n" +
+                "Total: 26 yuan\n" +
                 "==================================="));
 
     }
@@ -59,7 +59,7 @@ public class AppTest {
         assertThat(receiptString, is("============= Order details =============\n" +
                 "Chinese hamburger x 4 = 24 yuan\n" +
                 "-----------------------------------\n" +
-                "Total:24 yuan\n" +
+                "Total: 24 yuan\n" +
                 "==================================="));
 
     }
