@@ -11,10 +11,10 @@ public class TestData {
 
 
     public static final List<SalesPromotion> ALL_SALES_PROMOTIONS = Arrays.asList(
-            new SalesPromotion("BUY_30_SAVE_6_YUAN", "Deduct 6 yuan when the order reaches 30 yuan", Arrays.asList()),
             new SalesPromotion("50%_DISCOUNT_ON_SPECIFIED_ITEMS", "Half price for certain dishes", Arrays.asList(
                     "ITEM0001", "ITEM0022"
-            ))
+            )),
+            new SalesPromotion("BUY_30_SAVE_6_YUAN", "Deduct 6 yuan when the order reaches 30 yuan", Arrays.asList())
     );
 
 }
