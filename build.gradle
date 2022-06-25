@@ -18,6 +18,9 @@ plugins {
 mainClassName = 'App'
 
 dependencies {
+    implementation 'junit:junit:4.13.1'
+    implementation 'junit:junit:4.13.1'
+
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
