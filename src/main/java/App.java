@@ -16,10 +16,12 @@ public class App {
     }
 
     public String bestCharge(List<String> inputs) {
+        String result = "";
+
         // GetItemList
         List<Item> itemList = this.itemRepository.findAll();
         // output the title
-        System.out.println("============= Order details =============");
+        result += "============= Order details =============\n";
         // Get the sumPrice and all items
         int sumPrice = 0;
         Map<String, Pair<Item, Integer>> sumItemMap = new HashMap<String, Pair<Item, Integer>>();
@@ -39,26 +41,23 @@ public class App {
                     // save the item
                     sumItemMap.put(item.getId(), new Pair<>(item, nowItemCount));
                     // output this item
-                    System.out.format("%s x %s = %d yuan\n", item.getName(), nowItemCount, itemPrice);
+                    result += String.format("%s x %s = %d yuan\n", item.getName(), nowItemCount, itemPrice);
                     break;
                 }
             }
         }
         // output the split line
-        System.out.println("-----------------------------------");
+        result += "-----------------------------------\n";
         // output the Promotion used
         List<SalesPromotion> promotionList = this.salesPromotionRepository.findAll();
-        System.out.println("Promotion used:");
+        String promotionString = new String();
+        int sumOfSaving = 0;
         for(SalesPromotion promotion : promotionList) {
             switch (promotion.getType()) {
-                case "BUY_30_SAVE_6_YUAN":
-                    if(sumPrice >= 30){
-                        System.out.println(promotion.getDisplayName());
-                    }
-                    break;
                 case "50%_DISCOUNT_ON_SPECIFIED_ITEMS":
                     // get the sale items
                     List<String> promotionItems = promotion.getRelatedItems();
+                    List<String> promotionItemsName = new ArrayList<>();
                     // the sale price
                     int savingPrice = 0, minCount = Integer.MAX_VALUE;
                     // the break flag
@@ -69,19 +68,36 @@ public class App {
                             breakFlag = true;
                             break;
                         }
+                        promotionItemsName.add(item.getKey().getName());
                         savingPrice += item.getKey().getPrice();
                         minCount = Math.min(minCount, item.getValue());
                     }
-                    System.out.format("%s(%s)，saving %d yuan\n", promotion.getDisplayName(), String.join(",", promotion.getRelatedItems()), savingPrice * minCount);
+                    // if not have all the item of the sale items, just break
+                    if(breakFlag) {
+                        break;
+                    }
+                    savingPrice = savingPrice * minCount / 2;
+                    promotionString += String.format("%s(%s), saving %d yuan\n", promotion.getDisplayName(), String.join(" and ", promotionItemsName), savingPrice);
+                    sumOfSaving +=  savingPrice;
+                    break;
+                case "BUY_30_SAVE_6_YUAN":
+                    if(sumPrice >= 30){
+                        promotionString += promotion.getDisplayName() + "\n";
+                        sumOfSaving += 6;
+                    }
                     break;
             }
         }
-        // output the split line
-        System.out.println("-----------------------------------");
+        // output the promotions
+        if(promotionString.length() > 0) {
+            result += "Promotion used:\n";
+            result += promotionString;
+            result += "-----------------------------------\n";
+        }
         // output the sumPrice
-        System.out.format("Total: %d yuan\n", sumPrice);
+        result += String.format("Total: %d yuan\n", sumPrice - sumOfSaving);
         // output the end line
-        System.out.println("===================================");
-        return null;
+        result += "===================================\n";
+        return result;
     }
 }
