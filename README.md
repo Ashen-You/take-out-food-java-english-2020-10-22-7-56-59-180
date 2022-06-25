@@ -1,5 +1,8 @@
 # Take-away billing system
 
+## My Result of Test
+![image](https://user-images.githubusercontent.com/52924993/175769070-5f58aa8d-9ee5-45eb-aba0-d5b94966cb92.png)
+
 ## Demands description
 
 A fast food brand launched its own take-away app where users can directly order a meal on mobile phones. The app will make accumulations based on the selected "item", "count" and "promotion" and inform users the charge to be paid.
