@@ -77,11 +77,11 @@ public class App {
                         break;
                     }
                     savingPrice = savingPrice * minCount / 2;
-                    promotionString += String.format("%s(%s), saving %d yuan\n", promotion.getDisplayName(), String.join(" and ", promotionItemsName), savingPrice);
+                    promotionString += String.format("%s (%s), saving %d yuan\n", promotion.getDisplayName(), String.join(" and ", promotionItemsName), savingPrice);
                     sumOfSaving +=  savingPrice;
                     break;
                 case "BUY_30_SAVE_6_YUAN":
-                    if(sumPrice >= 30){
+                    if(sumPrice - sumOfSaving >= 30){
                         promotionString += promotion.getDisplayName() + "\n";
                         sumOfSaving += 6;
                     }
@@ -97,7 +97,7 @@ public class App {
         // output the sumPrice
         result += String.format("Total: %d yuan\n", sumPrice - sumOfSaving);
         // output the end line
-        result += "===================================\n";
+        result += "===================================";
         return result;
     }
 }
